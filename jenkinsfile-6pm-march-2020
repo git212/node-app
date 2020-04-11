@@ -13,7 +13,7 @@ pipeline {
             steps{
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
                     sh "docker login -u mitanjali -p ${dockerHubPwd}"
-                    sh "docker push mitanjali/nodeapp:${dockerHubPwd}"
+                    sh "docker push mitanjali/nodeapp: ${dockerHubPwd}"
                 }
             }
         }
