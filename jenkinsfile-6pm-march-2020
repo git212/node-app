@@ -11,9 +11,9 @@ pipeline {
         }
         stage('Nexus Push'){
             steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u mitanjali -p ${dockerHubPwd}"
-                    sh "docker push mitanjali/nodeapp:${dockerHubPwd}"
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'Bharat@1988')]) {
+                    sh "docker login -u mitanjali -p ${Bharat@1988}"
+                    sh "docker push mitanjali/nodeapp:${Bharat@1988}"
                 }
             }
         }
