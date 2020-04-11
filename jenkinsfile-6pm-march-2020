@@ -9,7 +9,7 @@ pipeline {
                 sh "docker build . -t mitanjali/nodeapp:${DOCKER_TAG} "
             }
         }
-        stage('Nexus Push'){
+        stage('Docker Push'){
             steps{
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
                     sh "docker login -u mitanjali -p ${dockerHubPwd}"
