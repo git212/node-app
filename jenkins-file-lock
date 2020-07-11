@@ -28,34 +28,4 @@ pipeline {
 def getDockerTag(){
     def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
     return tag
-}pipeline {
-    agent any
-    environment{
-        DOCKER_TAG = getDockerTag()
-    }
-    stages{
-        stage('Build Docker Image'){
-            steps{
-                sh "docker build . -t mitanjali/nodeapp:${DOCKER_TAG}"
-            }
-        }
-        stage('DockerHub push'){
-            steps{
-                withCredentials([string(credentialsId: 'Bharat@1988', variable: 'Bharat@1988Pwd')]) {
-                    sh "docker login -u mitanjali -p ${Bharat@1988Pwd}"
-                    sh "docker push mitanjali/nodeapp:${DOCKER_TAG}"
-                }
-            }
-        }
-        stage('Deploy to DevServer'){
-            steps{
-                echo "Deploying to dev server"
-            }
-        }
-    }
-}
-
-def getDockerTag(){
-    def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
-    return tag
 }
