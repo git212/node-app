@@ -21,7 +21,7 @@ pipeline {
             steps{
                 sshagent (credentials: ['dev-server']) {
                     script{
-                        def runCmd = "docker run -d -p 8080:9092 --name=myweb2pm mitanjali/myweb2pm:${DOCKER_TAG}"
+                        def runCmd = "docker run -d -p 8080:8080 --name=myweb2pm mitanjali/myweb2pm:${DOCKER_TAG}"
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@ 172.31.36.149 ${runCmd}"
                     }
                 }
