@@ -19,7 +19,12 @@ pipeline {
         }
         stage('Deploy to DevServer') {
             steps{
-                echo "Deploying to dev server"
+                sshagent (credentials: ['dev-server']) {
+                    script{
+                        def runCmd = "docker run -d -p 8080:8080 --name=myweb2pm mitanjali/myweb2pm:${DOCKER_TAG}"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@ 172.31.36.149 ${runCmd}"
+                    }
+                }
             }
         }
     }
