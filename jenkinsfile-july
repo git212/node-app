@@ -6,14 +6,14 @@ pipeline {
     stages{
         stage('Build Docker Image'){
             steps{
-               sh "docker build . -t mitanjali/nextwebapp:${DOCKER_TAG}"
+               sh "docker build . -t mitanjali/mywebnext:${DOCKER_TAG}"
             }
         }
         stage('DockerHub push'){
             steps{
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
                     sh "docker login -u mitanjali -p ${dockerHubPwd}"
-                    sh "docker push mitanjali/nextwebapp:${DOCKER_TAG}"
+                    sh "docker push mitanjali/mywebnext:${DOCKER_TAG}"
                 }
             }
         }
@@ -21,8 +21,8 @@ pipeline {
             steps{
                 sshagent (credentials: ['tomcat-dev']) {
                     script{
-                        sh returnStatus: true, script: 'docker rm -f nextwebapp'
-                        def runCmd = "docker run -d -p 8080:9091 --name=nextwebapp mitanjali/nextwebapp:${DOCKER_TAG}"
+                        sh returnStatus: true, script: 'docker rm -f mywebnext'
+                        def runCmd = "docker run -d -p 8080:8080 --name=mywebnext mitanjali/mywebnext:${DOCKER_TAG}"
                         sh "ssh o StrictHostKeyChecking=no ec2-user@172.31.34.81 ${runCmd}"
                     }
                 }
