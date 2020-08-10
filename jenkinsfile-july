@@ -21,7 +21,7 @@ pipeline {
             steps{
                 sshagent (credentials: ['tomcat-dev']) {
                     script{
-                        def runCmd = "docker run -d -p 8080:8080 --name=nextwebapp mitanjali/nextwebapp:${DOCKER_TAG}"
+                        def runCmd = "docker run -d -p 9090:8080 --name=nextwebapp mitanjali/nextwebapp:${DOCKER_TAG}"
                         sh "ssh o StrictHostKeyChecking=no ec2-user@172.31.34.81 ${runCmd}"
                     }
                 }
