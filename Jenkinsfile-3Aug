@@ -21,7 +21,7 @@ pipeline {
             steps{
                 sshagent (credentials: ['tomcat-dev']) {
                     script{
-                        def runCmd = "docker run -d -p 8080:8080 --name=genwebapp mitanjali/genwebapp: ${DOCKER_TAG}"
+                        def runCmd = "docker run -d -p 8080:9090 --name=genwebapp mitanjali/genwebapp: ${DOCKER_TAG}"
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.43.156 ${runCmd}"
                     }
                 }
