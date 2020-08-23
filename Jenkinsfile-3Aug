@@ -19,7 +19,12 @@ pipeline {
         }
         stage('Deploy to DevServer'){
             steps{
-                echo "deploying to devserver"
+                sshagent (credentials: ['deploy-devserver']) {
+                    script{
+                        def runCmd = "docker run -d -p 9090:8080 --name=genwebapp mitanjali/genwebapp: ${DOCKER_TAG}"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.43.156 ${runCmd}"
+                    }
+                }
             }
         }
     }
