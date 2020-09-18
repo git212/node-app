@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Deploy to DevServer'){
             steps{
-                sshagent (credentials: ['ec2-user dev-server']) {
+                sshagent (credentials: ['ec2-user']) {
                     script{
                         sh returnStatus: true, script: 'ssh ec2-user@172.31.3.47 docker rm -f 9pmwebapp'
                         def runCmd = "docker run -d -p 8080:8080 --name=9pmwebapp mitanjali/9pmwebapp: ${DOCKER_TAG}"
